@@ -3,133 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KundiwaMM (Mid Man/Woman)</title>
-
-<link rel="stylesheet" href="css/defaultPage.css">
+<title>Transaction Portal</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Croissant+One&family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
 
-::-webkit-scrollbar { display: none; }
+    .container {
+        background: #2f2f4f;
+        padding: 30px;
+        border-radius: 12px;
+        width: 350px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
 
-.section {
-    width: 100%;
-    height: auto;
-    background-color: #b8b8b8;
-    font-size: 10px;
-    text-align: center;
-}
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-.one {
-    background: url('ImageUI/BackgroundUI/BackgroundWeb10.png') no-repeat center center fixed;
-    background-size: cover;
-    overflow-x: hidden;
-}
+    select, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+    }
 
-.two {
-    background: url('ImageUI/BackgroundUI/BackgroundWeb8.png') no-repeat center center fixed;
-    background-size: cover;
-}
+    select {
+        background: #1e1e2f;
+        color: white;
+    }
 
-.three {
-    background: url('ImageUI/BackgroundUI/BackgroundWeb6.png') no-repeat center center fixed;
-    background-size: cover;
-}
+    button {
+        background: #4CAF50;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-.four {
-    background: url('ImageUI/BackgroundUI/BackgroundWeb1.png') no-repeat center center fixed;
-    background-size: cover;
-}
+    button:hover {
+        background: #45a049;
+    }
 
-.input {
-    background: transparent;
-    border: 2px solid white;
-    color: white;
-    width: 300px;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.title {
-    font-weight: 600;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    color: white;
-}
-
+    .result {
+        margin-top: 15px;
+        padding: 10px;
+        background: #1e1e2f;
+        border-radius: 8px;
+        display: none;
+    }
 </style>
 </head>
 
 <body>
 
-<!-- NAVIGATION -->
-<nav>
-<ul>
-<li><a href="#section1">Home</a></li>
-<li><a href="#section2">About</a></li>
-<li><a href="#section3">Fees</a></li>
-<li><a href="#section4">Groups</a></li>
-</ul>
-</nav>
+<div class="container">
+    <h2>Transaction Type</h2>
 
-<!-- SECTION 1 -->
-<div class="section one" id="section1">
-<h1 style="color:white;">Kundiwa Middleman Services</h1>
-<p style="color:white;">We handle services via Facebook & Discord</p>
-</div>
+    <label>Select Transaction:</label>
+    <select id="transactionType">
+        <option value="">-- Choose Type --</option>
+        <option value="Buy & Sell">Buy & Sell</option>
+        <option value="Trade">Trade</option>
+        <option value="Pilot Service">Pilot Service</option>
+        <option value="Skin Gifting">Skin Gifting</option>
+        <option value="Account In-Game Trade">Account In-Game Trade</option>
+    </select>
 
-<!-- SECTION 2 -->
-<div class="section two" id="section2">
-<h1 style="color:white;">Procedures in our Services</h1>
-<p style="color:white; max-width:800px; margin:auto;">
-Once all parties are in a group chat, our middleman gives instructions.
-We hold buyer payment, guide seller transfer, and release funds after confirmation.
-</p>
-</div>
+    <button onclick="submitTransaction()">Proceed</button>
 
-<!-- SECTION 3 (FEE CALCULATOR WORKING VERSION) -->
-<div class="section three" id="section3">
-<h1 style="color:white;">Calculate Middleman Fee</h1>
-
-<div class="title">Enter Transaction Amount (PHP)</div>
-<input id="amountInput" class="input" placeholder="Amount" type="number">
-
-<h2 style="color:white; margin-top:20px;">
-Fee: PHP <span id="mmfee">0</span>
-</h2>
-</div>
-
-<!-- SECTION 4 -->
-<div class="section four" id="section4">
-<h1 style="color:white;">Our Groups</h1>
-<p style="color:white;">Add your group links here</p>
+    <div class="result" id="resultBox"></div>
 </div>
 
 <script>
-// Responsive Debug (optional)
-window.onresize = window.onload = function () {
-    console.log(window.innerWidth + " x " + window.innerHeight);
-};
+function submitTransaction() {
+    const type = document.getElementById("transactionType").value;
+    const resultBox = document.getElementById("resultBox");
 
-// Simple Fee Calculator Example (2% minimum 20)
-const input = document.getElementById("amountInput");
-const feeDisplay = document.getElementById("mmfee");
-
-input.addEventListener("input", function () {
-    let amount = parseFloat(input.value);
-    if (isNaN(amount) || amount <= 0) {
-        feeDisplay.textContent = 0;
+    if (type === "") {
+        alert("Please select a transaction type.");
         return;
     }
 
-    let fee = amount * 0.02;
-    if (fee < 20) fee = 20;
-
-    feeDisplay.textContent = fee.toFixed(2);
-});
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <strong>Selected Transaction:</strong> ${type} <br><br>
+        Please fill out the required details for ${type}.
+    `;
+}
 </script>
 
 </body>
