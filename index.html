@@ -1,10 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KundiwaMM (Mid Man/Woman)</title>
+
+<link rel="stylesheet" href="css/defaultPage.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Croissant+One&family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+::-webkit-scrollbar { display: none; }
+
+.section {
+    width: 100%;
+    height: auto;
+    background-color: #b8b8b8;
+    font-size: 10px;
+    text-align: center;
+}
+
+.one {
+    background: url('ImageUI/BackgroundUI/BackgroundWeb10.png') no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+.two {
+    background: url('ImageUI/BackgroundUI/BackgroundWeb8.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.three {
+    background: url('ImageUI/BackgroundUI/BackgroundWeb6.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.four {
+    background: url('ImageUI/BackgroundUI/BackgroundWeb1.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.input {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    width: 300px;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.title {
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+</style>
 </head>
-<title>my first website</tittle>
-</head>
+
 <body>
-<h1>hello! </h1>
-<p> this is my website.</p>
+
+<!-- NAVIGATION -->
+<nav>
+<ul>
+<li><a href="#section1">Home</a></li>
+<li><a href="#section2">About</a></li>
+<li><a href="#section3">Fees</a></li>
+<li><a href="#section4">Groups</a></li>
+</ul>
+</nav>
+
+<!-- SECTION 1 -->
+<div class="section one" id="section1">
+<h1 style="color:white;">Kundiwa Middleman Services</h1>
+<p style="color:white;">We handle services via Facebook & Discord</p>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section two" id="section2">
+<h1 style="color:white;">Procedures in our Services</h1>
+<p style="color:white; max-width:800px; margin:auto;">
+Once all parties are in a group chat, our middleman gives instructions.
+We hold buyer payment, guide seller transfer, and release funds after confirmation.
+</p>
+</div>
+
+<!-- SECTION 3 (FEE CALCULATOR WORKING VERSION) -->
+<div class="section three" id="section3">
+<h1 style="color:white;">Calculate Middleman Fee</h1>
+
+<div class="title">Enter Transaction Amount (PHP)</div>
+<input id="amountInput" class="input" placeholder="Amount" type="number">
+
+<h2 style="color:white; margin-top:20px;">
+Fee: PHP <span id="mmfee">0</span>
+</h2>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section four" id="section4">
+<h1 style="color:white;">Our Groups</h1>
+<p style="color:white;">Add your group links here</p>
+</div>
+
+<script>
+// Responsive Debug (optional)
+window.onresize = window.onload = function () {
+    console.log(window.innerWidth + " x " + window.innerHeight);
+};
+
+// Simple Fee Calculator Example (2% minimum 20)
+const input = document.getElementById("amountInput");
+const feeDisplay = document.getElementById("mmfee");
+
+input.addEventListener("input", function () {
+    let amount = parseFloat(input.value);
+    if (isNaN(amount) || amount <= 0) {
+        feeDisplay.textContent = 0;
+        return;
+    }
+
+    let fee = amount * 0.02;
+    if (fee < 20) fee = 20;
+
+    feeDisplay.textContent = fee.toFixed(2);
+});
+</script>
+
 </body>
 </html>
